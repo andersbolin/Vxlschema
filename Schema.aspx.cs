@@ -27,7 +27,7 @@ public partial class Schema : System.Web.UI.Page
 
         //Data Source=Data Source=(LocalDB)\v11.0;AttachDbFilename="C:\Users\Anders\Documents\Visual Studio 2013\WebSites\WebSite5\App_Data\SJ.mdf";Integrated Security=True;Connect Timeout=30
         SqlConnection conn;
-        string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|/SJ.mdf;Integrated Security=True; Initial Catalog=App_Data;Connect Timeout=30";
+        string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|/SJ.mdf;Integrated Security=True;Connect Timeout=30";
         conn = new SqlConnection(connectionString);
 
         try{
