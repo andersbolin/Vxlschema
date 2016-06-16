@@ -9,9 +9,45 @@ using System.Web.UI.WebControls;
 
 public partial class CalendarView : System.Web.UI.Page
 {
+    //Declaring variables
+    DataTable dt;
+    DataRow dr;
+    DateTimeFormatInfo dfi;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        DataTable dt = new DataTable("Schema");
+        //Creates the datatable to use with gridveiw
+        dt = new DataTable("Schema");
+        CreateTable();
+
+        //Create new data table
+        for (int x = 0; x < 3; x++)
+        {
+            dr = dt.NewRow();
+            dr[0] = SetWeekNumber() + x;
+            dr[3] = "Test" + Environment.NewLine + "2:nd line";
+            dt.Rows.Add(dr);
+        }
+
+        //Binder till gridview
+        GridView gv = GridView1;
+        gv.DataSource = dt;
+        gv.DataBind();
+        
+    }
+
+    protected int SetWeekNumber()
+    {
+        //week number calculation
+        DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+        DateTime date1 = DateTime.Today;
+        System.Globalization.Calendar cal = dfi.Calendar;
+        int wnr = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
+        return wnr;
+    }
+
+    protected void CreateTable()
+    {
         dt.Columns.Add("Veckonr", typeof(String));
         dt.Columns.Add("Måndag", typeof(String));
         dt.Columns.Add("Tisdag", typeof(String));
@@ -20,20 +56,11 @@ public partial class CalendarView : System.Web.UI.Page
         dt.Columns.Add("Fredag", typeof(String));
         dt.Columns.Add("Lördag", typeof(String));
         dt.Columns.Add("Söndag", typeof(String));
-        DataRow dr = dt.NewRow();
-        //week number calculation
-        DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
-        DateTime date1 = DateTime.Today;
-        System.Globalization.Calendar cal = dfi.Calendar;
-        dr[0] = cal.GetWeekOfYear(date1, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
-        dr[3] = "Test";
-        dt.Rows.Add(dr);
-        GridView gv = GridView1;
-        gv.DataSource = dt;
-        gv.DataBind();
-        //GridViewRow row = (GridView)GridView1.Rows[0].Copy;
-        //row.Cells[0].Value = "XYZ";
-        //row.Cells[1].Value = 50.2;
-        //GridView1.Row.Add(row);
+    }
+
+    protected int TurNummer(int weeknumber)
+    {
+
+        return 0;
     }
 }

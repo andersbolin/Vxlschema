@@ -9,9 +9,9 @@ using System.Web.UI.WebControls;
 public partial class Manager_Datamanager : System.Web.UI.Page
 {
     //Declaring variables
+    DAL dal = new DAL();
     String turnr, start, slut;
     SqlConnection conn;
-    //string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|/SJ.mdf;Integrated Security=True;Connect Timeout=30";
     string connectionString = @"Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|/SJ.mdf;Integrated Security=True;MultipleActiveResultSets=True;Connect Timeout=30;Application Name=EntityFramework";    
 
     protected void Page_Load(object sender, EventArgs e)
@@ -47,81 +47,16 @@ public partial class Manager_Datamanager : System.Web.UI.Page
 
     protected bool AddtoDB()
     {
-        Label1.Text = "";
-        //Lägg till en hel rad
-        try
-        {
-            conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "INSERT INTO [Table] (Id,start,slut) VALUES (@tur,@sta,@sto)";
-            cmd.Parameters.Add(new SqlParameter("@tur",TextBox1.Text));
-            cmd.Parameters.Add(new SqlParameter("@sta",TextBox2.Text));
-            cmd.Parameters.Add(new SqlParameter("@sto",TextBox3.Text));
-            cmd.Connection = conn;
-
-            conn.Open();
-            cmd.ExecuteNonQuery();            
-        } catch (SqlException ex) {
-            return false;             
-        } finally {
-            conn.Close();
-        }
-        return true;
+        return dal.addTur(TextBox1.Text, TextBox2.Text, TextBox3.Text);
     }
+
     protected bool RemovefromDB() 
     {
-        Label1.Text = "";
-        //ta bort en rad, key = turnr
-        try
-        {
-            conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "DELETE FROM [Table] WHERE Id="+TextBox1.Text;
-            cmd.Connection = conn;
-
-            conn.Open();
-            cmd.ExecuteNonQuery();        
-        }
-        catch (Exception ex)
-        {            
-            throw;
-            return false;
-        }
-        finally
-        {
-            conn.Close();
-        }
-        return true;
+        return dal.deleteTur(TextBox1.Text);
     }
+
     protected bool ChangeinDB()
     {
-        Label1.Text = "";
-        //ändra start & slut där ID = turnr
-        try
-        {
-            conn = new SqlConnection(connectionString);
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandType = System.Data.CommandType.Text;
-            cmd.CommandText = "UPDATE [Table] SET start=@sta, slut=@sto WHERE Id=@key";
-            cmd.Parameters.Add(new SqlParameter("@key", TextBox1.Text));
-            cmd.Parameters.Add(new SqlParameter("@sta", TextBox2.Text));
-            cmd.Parameters.Add(new SqlParameter("@sto", TextBox3.Text));
-            cmd.Connection = conn;
-
-            conn.Open();
-            cmd.ExecuteNonQuery();  
-        }
-        catch (Exception)
-        {            
-            throw;
-            return false;
-        }
-        finally
-        {
-            conn.Close();
-        }
-        return true;
+        return dal.changeTur(TextBox1.Text, TextBox2.Text, TextBox3.Text);
     }
 }

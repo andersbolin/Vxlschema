@@ -19,7 +19,7 @@
     <div>
         <br />
         <br />
-        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Height="40px" Width="80px" CellSpacing="3" DataKeyNames="Måndag,Tisdag,Onsdag,Torsdag,Fredag,Lördag,Söndag">
+        <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" Height="40px" Width="160px" CellSpacing="3" DataKeyNames="Måndag,Tisdag,Onsdag,Torsdag,Fredag,Lördag,Söndag">
             <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
             <EditRowStyle BackColor="#999999" />
             <FooterStyle BackColor="#5D7B9D" Font-Bold="True" ForeColor="White" />
@@ -30,7 +30,7 @@
             <SortedAscendingCellStyle BackColor="#E9E7E2" />
             <SortedAscendingHeaderStyle BackColor="#506C8C" />
             <SortedDescendingCellStyle BackColor="#FFFDF8" />
-            <SortedDescendingHeaderStyle BackColor="#6F8DAE" />
+            <SortedDescendingHeaderStyle BackColor="#6F8DAE" Font-Underline="False" />
         </asp:GridView>
     
     </div>
